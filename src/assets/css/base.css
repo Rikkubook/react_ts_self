@@ -1,0 +1,51 @@
+@layer base{
+  html{
+    @apply font-serif font-normal;
+  }
+  h1,h2,h3,h4,h5{
+    @apply leading-120p tracking-5p font-bold;
+  }
+  p,span{
+    @apply text-sm md:text-base
+  }
+  h1{
+    @apply text-8 md:text-12
+  }
+  h2{
+    @apply text-10
+  }
+  h3{
+    @apply  text-8
+  }
+  h4{
+    @apply  text-7
+  }
+  h5{
+    @apply  text-6
+  }
+  h6{
+    @apply  text-5
+  }
+}
+
+.title{
+  font-size: 16px;
+  @apply font-bold ;
+}
+
+.subtitle{
+  font-size: 14px;
+  @apply font-bold ;
+}
+
+.tiny{
+  font-size: 12px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}

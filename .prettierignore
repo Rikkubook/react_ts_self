@@ -1,0 +1,14 @@
+build
+coverage
+package-lock.json
+package.json
+.postcssrc.js
+.prettierrc
+babel.config.jso
+README.md
+src/style/plugins/bootstrap/*
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+src/api/json/*

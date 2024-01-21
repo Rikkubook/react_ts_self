@@ -1,0 +1,40 @@
+@layer components{
+  .link{
+    @apply inline-block text-primary-100 hover:text-primary-120 underline;
+  }
+  .btn {
+    @apply  w-full bg-white inline-flex justify-center items-center py-4 px-8 border border-transparent text-sm rounded-lg  transition-colors;
+    @apply hover:bg-primary-100 hover:text-white focus:outline-none focus:ring-offset-2;
+  }
+  .step{
+    @apply flex flex-col items-center;
+    @apply flex flex-col items-center;
+    span{
+      @apply  border border-primary-100 mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-white;
+    }
+    p{
+      @apply text-white;
+    }
+  }
+  .step-line{
+    @apply flex flex-1 items-center;
+    span{
+      @apply mx-4 inline-block w-full  border-b border-solid border-black-60;
+    }
+  }
+  .step--none{
+    span{
+      @apply border border-black-60 mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-transparent text-black-60;
+    }
+    p{
+      @apply text-black-60;
+    }
+  }
+}
+
+.card{
+  .link{
+    @apply text-green-600 hover:text-green-500
+  }
+}
+
