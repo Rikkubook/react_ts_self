@@ -1,26 +1,38 @@
 import React from "react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 
 const { useState } = React;
 
-interface Props {
+type Props = {
   label: string;
   id: string;
   type: string;
   placeholder: string;
   onInputChange: (key: string, value: string) => void;
-}
+  currentStep?: number;
+};
 
-function InputGroup({ label, id, type, placeholder, onInputChange }: Props) {
-  const [value, setValue] = useState("");
+function InputGroup({
+  label,
+  id,
+  type,
+  placeholder,
+  onInputChange,
+  currentStep,
+}: Props) {
+  const [value, setValue] = useState(""); // 為了及時顯示
 
-  const changeValue = (event: ChangeEvent<HTMLInputElement>) => {
+  const changeValue = (id: string, event: ChangeEvent<HTMLInputElement>) => {
+    console.log("changeValue");
     setValue(event.target.value);
-    onInputChange(id, value);
+    onInputChange(id, event.target.value); // 為了即時給父層連動
   };
+  useEffect(() => {
+    setValue("");
+  }, [currentStep]);
 
   return (
-    <div className="form-group">
+    <>
       <label className="form-label" htmlFor={id}>
         {label}
       </label>
@@ -31,9 +43,9 @@ function InputGroup({ label, id, type, placeholder, onInputChange }: Props) {
         id={id}
         placeholder={placeholder}
         autoComplete="off"
-        onChange={(e) => changeValue(e)}
+        onChange={(e) => changeValue(id, e)}
       />
-    </div>
+    </>
   );
 }
 

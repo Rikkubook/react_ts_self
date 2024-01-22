@@ -1,7 +1,8 @@
-module.exports = {
-  "printWidth": 100,
-  "useTabs": true,
+{
+  "trailingComma": "all",
+  "semi": true,
   "singleQuote": true,
-  "jsxSingleQuote": true,
-  "trailingComma": "all"
+  "bracketSpacing": true,
+  "printWidth": 100,
+  "arrowParens": "always"
 }

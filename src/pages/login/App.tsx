@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import StepsList from "@/components/StepsList";
+import InputGroup from "@/components/Form/InputGroup";
+import InputCheckbox from "@/components/Form/InputCheckbox";
+import Button from "@/components/Form/Button";
 
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
 
 function App() {
-  const [step, setStep] = useState(1);
   const [register, setRegister] = useState({
     email: "",
     password: "",
@@ -17,59 +18,16 @@ function App() {
     birthday: "",
   });
 
-  function changeStep(order: number): void {
-    setStep(order);
+  function onInputChange(key: string, value: string | boolean): void {
+    console.log("onInputChange", key, value);
+    setRegister({ ...register, [key]: value });
   }
 
-  const steps = ["輸入信箱及密碼", "填寫基本資料"];
-
-  const years = Array.from(
-    { length: 2024 - 1924 + 1 },
-    (_, index) => 2024 - index,
-  );
-
-  const months = Array.from({ length: 12 }, (_, index) => 1 + index);
-  const month = 1;
-  const year = 12;
-
-  const buildDay = (month: number, year: number): number => {
-    switch (month) {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
-        return 31;
-        break;
-      case 4:
-      case 6:
-      case 9:
-      case 11:
-        return 30;
-        break;
-      case 2:
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-          return 29;
-        } else {
-          return 28;
-        }
-        break;
-      default:
-        return 30;
-        break;
-    }
-  };
-  const dateLength = buildDay(month, year);
-
-  const dates = Array.from({ length: dateLength }, (_, index) => 1 + index);
-
-  const myDate = new Date("2023/1/19");
-  const unixTimestamp = Math.floor(myDate.getTime() / 1000);
+  useEffect(() => {
+    console.log(register);
+  }, [register]);
 
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  console.log(isMobile);
 
   return (
     <>
@@ -100,51 +58,37 @@ function App() {
               {/* 表單 */}
               <div className="mb-10 space-y-4">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="email">
-                    電子信箱
-                  </label>
-                  <input
-                    className="form-input"
+                  <InputGroup
+                    label="電子信箱"
                     type="text"
                     id="email"
                     placeholder="hello@exsample.com"
-                    autoComplete="off"
+                    onInputChange={onInputChange}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="password">
-                    密碼
-                  </label>
-                  <input
-                    className="form-input"
+                  <InputGroup
+                    label="密碼"
                     type="password"
                     id="password"
-                    defaultValue="請輸入密碼"
-                    autoComplete="new-password"
+                    placeholder="請輸入密碼"
+                    onInputChange={onInputChange}
                   />
                 </div>
                 <div className="form-group flex-row items-center justify-between">
-                  <label className="form-label mb-0" htmlFor="agree">
-                    <input
-                      className="form-checkbox"
-                      type="checkbox"
-                      id="agree"
-                    />
-                    記住帳號
-                  </label>
+                  <InputCheckbox
+                    check={false}
+                    label="記住帳號"
+                    id="remainder"
+                    onInputChange={onInputChange}
+                  />
                   <button className="link" type="button">
                     忘記密碼?
                   </button>
                 </div>
               </div>
-              <button
-                className="btn mb-4"
-                type="button"
-                onClick={() => changeStep(2)}
-              >
-                會員登入
-              </button>
+              <Button label="會員登入" />
               <p className=" text-white">
                 沒有會員嗎？
                 <a className="link ml-2" href="./register.html">
