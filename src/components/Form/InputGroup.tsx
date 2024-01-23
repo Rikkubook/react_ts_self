@@ -10,6 +10,8 @@ type Props = {
   placeholder: string;
   onInputChange: (key: string, value: string) => void;
   currentStep?: number;
+  isError?: boolean;
+  errorMsg?: string;
 };
 
 function InputGroup({
@@ -19,6 +21,8 @@ function InputGroup({
   placeholder,
   onInputChange,
   currentStep,
+  isError,
+  errorMsg,
 }: Props) {
   const [value, setValue] = useState(""); // 為了及時顯示
 
@@ -38,13 +42,14 @@ function InputGroup({
       </label>
       <input
         value={value}
-        className="form-input"
+        className={`form-input ${isError && "form-input-error"}`}
         type={type}
         id={id}
         placeholder={placeholder}
         autoComplete="off"
         onChange={(e) => changeValue(id, e)}
       />
+      {isError && <p className="form-error">{errorMsg}</p>}
     </>
   );
 }

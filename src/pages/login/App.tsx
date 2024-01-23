@@ -8,31 +8,57 @@ import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
 
+import { isMobile } from "@/composable/public";
+import { postAxios } from "@/composable/api";
+import { checkEmail, checkPassword } from "@/composable/verify";
+
 function App() {
-  const [register, setRegister] = useState({
+  const [login, setLogin] = useState({
     email: "",
     password: "",
-    checkPassword: "",
-    name: "",
-    phone: "",
-    birthday: "",
+  });
+
+  const [errorCheck, setErrorCheck] = useState({
+    email: false,
+    password: false,
   });
 
   function onInputChange(key: string, value: string | boolean): void {
     console.log("onInputChange", key, value);
-    setRegister({ ...register, [key]: value });
+    setLogin({ ...login, [key]: value });
+  }
+
+  function postLogin() {
+    const emailError = checkEmail(login.email);
+    const passwordError = checkPassword(login.password);
+
+    setErrorCheck({
+      ...errorCheck,
+      email: emailError,
+      password: passwordError,
+    });
+
+    if (!emailError && !passwordError) {
+      postAxios("/user/login", login)
+        .then(() => {
+          console.log("登入成功");
+          window.location.href = "/index";
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err);
+        });
+    }
   }
 
   useEffect(() => {
-    console.log(register);
-  }, [register]);
-
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    console.log(login);
+  }, [login]);
 
   return (
     <>
       <Header />
-      <div className="grid grid-cols-1 bg-black-120 md:grid-cols-2">
+      <div className="grid min-h-[calc(100vh_-_81.39px)] grid-cols-1 overflow-hidden bg-black-120 md:grid-cols-2">
         <div className="col-span-1 hidden md:block">
           <img
             className="h-full w-full object-cover"
@@ -42,7 +68,7 @@ function App() {
         </div>
         <div className="relative col-span-1 p-6 md:p-10">
           <img
-            className="absolute -left-6 top-5 w-[calc(100%_+_48px)] max-w-max md:left-0 md:top-auto md:w-full"
+            className="absolute left-0 right-0 top-5   md:left-0 md:top-auto md:w-full"
             src={isMobile ? lineBgc_mb : lineBgc_pc}
             alt="步驟背景圖"
           />
@@ -64,6 +90,9 @@ function App() {
                     id="email"
                     placeholder="hello@exsample.com"
                     onInputChange={onInputChange}
+                    currentStep={1}
+                    isError={errorCheck.email}
+                    errorMsg="信箱格式不合"
                   />
                 </div>
 
@@ -74,6 +103,9 @@ function App() {
                     id="password"
                     placeholder="請輸入密碼"
                     onInputChange={onInputChange}
+                    currentStep={1}
+                    isError={errorCheck.password}
+                    errorMsg="密碼不可小於8位，且須數字英文混雜"
                   />
                 </div>
                 <div className="form-group flex-row items-center justify-between">
@@ -88,7 +120,7 @@ function App() {
                   </button>
                 </div>
               </div>
-              <Button label="會員登入" />
+              <Button label="會員登入" onButtonClick={postLogin} />
               <p className=" text-white">
                 沒有會員嗎？
                 <a className="link ml-2" href="./register.html">

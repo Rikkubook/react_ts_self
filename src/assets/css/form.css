@@ -17,4 +17,10 @@
     @apply focus:ring-0 focus:shadow-none focus:ring-offset-0;
     @apply hover:shadow-primary;
   }
+  .form-error{
+    @apply text-sm mt-2 text-error-100 font-bold;
+  }
+  .form-input-error{
+    @apply border border-error-100;
+  }
 }

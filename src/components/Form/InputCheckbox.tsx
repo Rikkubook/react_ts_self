@@ -8,9 +8,18 @@ type Props = {
   id: string;
   check: boolean;
   onInputChange: (key: string, value: string | boolean) => void;
+  isError?: boolean;
+  errorMsg?: string;
 };
 
-function InputCheckbox({ label, id, check, onInputChange }: Props) {
+function InputCheckbox({
+  label,
+  id,
+  check,
+  onInputChange,
+  isError,
+  errorMsg,
+}: Props) {
   // 使用狀態來管理 checkbox 的值
   const [isChecked, setIsChecked] = useState(check);
 
@@ -31,6 +40,7 @@ function InputCheckbox({ label, id, check, onInputChange }: Props) {
         />
         {label}
       </label>
+      {isError && <p className="form-error">{errorMsg}</p>}
     </>
   );
 }

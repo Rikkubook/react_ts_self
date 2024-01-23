@@ -8,16 +8,27 @@ import Button from "@/components/Form/Button";
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
-
 import cityCounty from "@/assets/api/CityCount.json";
 
-import axios from "axios";
+import { years, months, dates } from "@/composable/form/day";
+import { cities, getTown } from "@/composable/form/cityTown";
+import { City, Area } from "@/typescript/types/cityTown";
+
+import { isMobile } from "@/composable/public";
+import { postAxios } from "@/composable/api";
+import {
+  checkEmail,
+  checkPassword,
+  checkDoubleCheck,
+  checkRequired,
+  checkCheckbox,
+} from "@/composable/verify";
 
 function App() {
   const [step, setStep] = useState(1);
   const steps = ["輸入信箱及密碼", "填寫基本資料"];
 
-  // 表單
+  // 表單一
   const [register, setRegister] = useState({
     email: "",
     password: "",
@@ -29,6 +40,17 @@ function App() {
       zipcode: 100,
       detail: "",
     },
+    agree: false,
+  });
+
+  const [errorCheck, setErrorCheck] = useState({
+    email: false,
+    password: false,
+    checkPassword: false,
+    name: false,
+    phone: false,
+    detail: false,
+    agree: false,
   });
 
   function onInputChange(key: string, value: string | boolean): void {
@@ -37,31 +59,45 @@ function App() {
   }
 
   function onButtonClick(): void {
-    setStep(2);
+    const emailError = checkEmail(register.email);
+    const passwordError = checkPassword(register.password);
+    const checkPasswordError = checkDoubleCheck(
+      register.password,
+      register.checkPassword,
+    );
+
+    setErrorCheck({
+      ...errorCheck,
+      email: emailError,
+      password: passwordError,
+      checkPassword: checkPasswordError,
+    });
+    if (!emailError && !passwordError && !checkPasswordError) {
+      // 所有字段验证通过，可以进行下一步操作
+      setStep(2);
+    }
   }
 
+  // 表單二
   function onChangeBirthday(
     id: string,
     event: ChangeEvent<HTMLSelectElement>,
   ): void {
-    let change: string = "";
+    const birthdayArray = register.birthday.split("/");
+    let changeIndex = 0;
 
     if (id === "year") {
-      change = register.birthday.split("/")[0];
+      changeIndex = 0;
     } else if (id === "month") {
-      change = register.birthday.split("/")[1];
+      changeIndex = 1;
     } else {
-      change = register.birthday.split("/")[2];
+      changeIndex = 2;
     }
-    const changeData = register.birthday.replace(change, event.target.value);
+    birthdayArray[changeIndex] = event.target.value;
+    const changeData = birthdayArray.join("/");
     setRegister({ ...register, ["birthday"]: changeData });
   }
 
-  type Area = {
-    ZipCode: string;
-    AreaName: string;
-    AreaEngName: string;
-  };
   const [countries, setCountries] = useState<Area[] | undefined>([]);
 
   function onChangeAddress(
@@ -69,9 +105,7 @@ function App() {
     event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>,
   ): void {
     if (id === "city") {
-      const findCity = cityCounty.find((city) => {
-        return city.CityName === event.target.value;
-      });
+      const findCity = getTown(event.target.value);
       setCountries(findCity?.AreaList);
     } else if (id === "country") {
       setRegister({
@@ -92,79 +126,37 @@ function App() {
     }
   }
 
-  //功能
-  async function postAxios() {
-    try {
-      const res: unknown = await axios.post(
-        "http://localhost:3005/api/v1/user/signup",
-        {
-          name: "Rikkubook",
-          email: "Rikkubook.murphy@example.com",
-          password: "123456qq",
-          phone: "(663) 742-3828",
-          birthday: "1982/2/4",
-          address: {
-            zipcode: 802,
-            detail: "文山路23號",
-          },
-        },
-      );
-      console.log(res);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        console.error("Error:", err.response?.data.message);
-      }
+  function postRegister() {
+    const nameError = checkRequired(register.name);
+    const phoneError = checkRequired(register.phone);
+    const detailError = checkRequired(register.address.detail);
+    const checkCheckboxError = checkCheckbox(register.agree);
+
+    setErrorCheck({
+      ...errorCheck,
+      name: nameError,
+      phone: phoneError,
+      detail: detailError,
+      agree: checkCheckboxError,
+    });
+    if (!nameError && !phoneError && !detailError && !checkCheckboxError) {
+      // 所有字段验证通过，可以进行下一步操作
+      postAxios("/user/signup", register)
+        .then(() => {
+          console.log("註冊成功");
+          window.location.href = "/login";
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err);
+        });
     }
   }
 
-  // 畫面顯示用
-  const years = Array.from(
-    { length: 2024 - 1924 + 1 },
-    (_, index) => 2024 - index,
-  );
-
-  const months = Array.from({ length: 12 }, (_, index) => 1 + index);
-  const month = 1;
-  const year = 12;
-
-  const buildDay = (month: number, year: number): number => {
-    switch (month) {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
-        return 31;
-        break;
-      case 4:
-      case 6:
-      case 9:
-      case 11:
-        return 30;
-        break;
-      case 2:
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-          return 29;
-        } else {
-          return 28;
-        }
-        break;
-      default:
-        return 30;
-        break;
-    }
-  };
-  const dateLength = buildDay(month, year);
-  const dates = Array.from({ length: dateLength }, (_, index) => 1 + index);
-
-  const cities = cityCounty.map((city) => city.CityName);
-
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
   useEffect(() => {
-    const findCity = cityCounty.find((city) => city.CityName === "高雄市");
+    const findCity = cityCounty.find(
+      (city: City) => city.CityName === "高雄市",
+    );
     setCountries(findCity?.AreaList);
   }, []);
 
@@ -206,6 +198,8 @@ function App() {
                       placeholder="hello@exsample.com"
                       onInputChange={onInputChange}
                       currentStep={1}
+                      isError={errorCheck.email}
+                      errorMsg="信箱格式不合"
                     />
                   </div>
                   <div className="form-group">
@@ -216,6 +210,8 @@ function App() {
                       placeholder="請輸入密碼"
                       onInputChange={onInputChange}
                       currentStep={1}
+                      isError={errorCheck.password}
+                      errorMsg="密碼不可小於8位，且須數字英文混雜"
                     />
                   </div>
                   <div className="form-group">
@@ -225,7 +221,9 @@ function App() {
                       id="checkPassword"
                       placeholder="請輸入確認密碼"
                       onInputChange={onInputChange}
+                      isError={errorCheck.checkPassword}
                       currentStep={1}
+                      errorMsg="密碼不相同"
                     />
                   </div>
                 </div>
@@ -249,6 +247,8 @@ function App() {
                       placeholder="請輸入姓名"
                       onInputChange={onInputChange}
                       currentStep={2}
+                      isError={errorCheck.name}
+                      errorMsg="此為必填"
                     />
                   </div>
                   <div className="form-group">
@@ -259,6 +259,8 @@ function App() {
                       placeholder="請輸入手機號碼"
                       onInputChange={onInputChange}
                       currentStep={2}
+                      isError={errorCheck.phone}
+                      errorMsg="此為必填"
                     />
                   </div>
                   <div className="form-group">
@@ -343,13 +345,16 @@ function App() {
                       </select>
                     </div>
                     <input
-                      className="form-input"
+                      className={`form-input ${errorCheck.detail && "form-input-error"}`}
                       type="text"
                       id="address"
                       placeholder="請輸入詳細地址"
                       autoComplete="new-password"
                       onChange={(e) => onChangeAddress("address", e)}
                     />
+                    {errorCheck.detail && (
+                      <p className="form-error">此為必填</p>
+                    )}
                   </div>
                   <div className="form-group">
                     <InputCheckbox
@@ -357,10 +362,12 @@ function App() {
                       label="我已閱讀並同意本網站個資使用規範"
                       id="agree"
                       onInputChange={onInputChange}
+                      isError={errorCheck.agree}
+                      errorMsg="必須勾選"
                     />
                   </div>
                 </div>
-                <Button label="完成註冊" />
+                <Button label="完成註冊" onButtonClick={postRegister} />
                 <p className=" text-white">
                   已經有會員了嗎?
                   <a className="link ml-2" href="./login.html">
