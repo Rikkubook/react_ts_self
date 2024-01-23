@@ -8,9 +8,9 @@ import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
 
-import { isMobile } from "@/composable/public";
-import { postAxios } from "@/composable/api";
-import { checkEmail, checkPassword } from "@/composable/verify";
+import { isMobile } from "../../../subPublic/ts/public";
+import { postAxios } from "../../../subPublic/ts/api";
+import { checkEmail, checkPassword } from "../../../subPublic/ts/verify";
 
 function App() {
   const [login, setLogin] = useState({

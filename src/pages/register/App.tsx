@@ -8,21 +8,22 @@ import Button from "@/components/Form/Button";
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
-import cityCounty from "@/assets/api/CityCount.json";
+import cityCounty from "../../../subPublic/api/CityCount.json";
 
-import { years, months, dates } from "@/composable/form/day";
-import { cities, getTown } from "@/composable/form/cityTown";
+import { years, months, dates } from "../../../subPublic/ts/form/day";
+import { cities, getTown } from "../../../subPublic/ts/form/cityTown";
 import { City, Area } from "@/typescript/types/cityTown";
 
-import { isMobile } from "@/composable/public";
-import { postAxios } from "@/composable/api";
+import { isMobile } from "../../../subPublic/ts/public";
+import { postAxios } from "../../../subPublic/ts/api";
+
 import {
   checkEmail,
   checkPassword,
   checkDoubleCheck,
   checkRequired,
   checkCheckbox,
-} from "@/composable/verify";
+} from "../../../subPublic/ts/verify";
 
 function App() {
   const [step, setStep] = useState(1);
