@@ -1,0 +1,6 @@
+[submodule "reference/git-sub-module"]
+	path = reference/git-sub-module
+	url = https://github.com/Rikkubook/git-sub-module.git
+[submodule "subPublic"]
+	path = subPublic
+	url = https://github.com/Rikkubook/git-sub-module.git
