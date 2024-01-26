@@ -15,7 +15,7 @@ function Header() {
   };
   return (
     <div
-      className={`${pathname === "/" ? "bg-transparent" : "bg-black-120"} flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
+      className={`${pathname === "/" ? "bg-transparent" : "bg-black-120"} relative z-10 flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
     >
       <h1 className=" inline-block">
         <a className=" inline-block" href="/">

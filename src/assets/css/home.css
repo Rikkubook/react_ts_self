@@ -31,10 +31,16 @@
   left: -50px;
 }
 .home-banner {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 .home-banner-mock{
+  position: absolute;
+  z-index: 1;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.60);;
 }

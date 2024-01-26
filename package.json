@@ -18,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
     "react-router-dom": "^6.21.3",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",
