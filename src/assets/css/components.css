@@ -6,6 +6,14 @@
     @apply  w-full bg-white inline-flex justify-center items-center py-4 px-8 border border-transparent text-sm rounded-lg  transition-colors;
     @apply hover:bg-primary-100 hover:text-white focus:outline-none focus:ring-offset-2;
   }
+  .btn-transparent{
+    @apply  w-auto bg-transparent inline-flex justify-center items-center py-4 px-8 border-0  text-sm  text-white transition-colors;
+    @apply hover:text-primary-100;
+  }
+  .btn-primary{
+    @apply  w-full bg-primary-100 inline-flex justify-center items-center py-4 px-8 border border-transparent  text-white  text-sm rounded-lg  transition-colors;
+    @apply hover:bg-primary-100 hover:text-white focus:outline-none focus:ring-offset-2;
+  }
   .step{
     @apply flex flex-col items-center;
     @apply flex flex-col items-center;

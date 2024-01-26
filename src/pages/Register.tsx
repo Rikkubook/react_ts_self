@@ -8,14 +8,15 @@ import Button from "@/components/Form/Button";
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
-import cityCounty from "../../../subPublic/api/CityCount.json";
+import cityCounty from "../../subPublic/api/CityCount.json";
 
-import { years, months, dates } from "../../../subPublic/ts/form/day";
-import { cities, getTown } from "../../../subPublic/ts/form/cityTown";
+import { years, months, dates } from "../../subPublic/ts/form/day";
+import { cities, getTown } from "../../subPublic/ts/form/cityTown";
 import { City, Area } from "@/typescript/types/cityTown";
 
-import { isMobile } from "../../../subPublic/ts/public";
-import { postAxios } from "../../../subPublic/ts/api";
+import { useMobileStatus } from "../../subPublic/ts/usePublic";
+import { postAxios } from "../../subPublic/ts/api";
+import { Link } from "react-router-dom";
 
 import {
   checkEmail,
@@ -23,11 +24,12 @@ import {
   checkDoubleCheck,
   checkRequired,
   checkCheckbox,
-} from "../../../subPublic/ts/verify";
+} from "../../subPublic/ts/verify";
 
 function App() {
   const [step, setStep] = useState(1);
   const steps = ["輸入信箱及密碼", "填寫基本資料"];
+  const isMobile = useMobileStatus();
 
   // 表單一
   const [register, setRegister] = useState({
@@ -231,9 +233,9 @@ function App() {
                 <Button label="下一步" onButtonClick={onButtonClick} />
                 <p className=" text-white">
                   已經有會員了嗎?
-                  <a className="link ml-2" href="./login.html">
+                  <Link className="link ml-2" to="/login">
                     立即登入
-                  </a>
+                  </Link>
                 </p>
               </form>
             ) : (
@@ -371,9 +373,9 @@ function App() {
                 <Button label="完成註冊" onButtonClick={postRegister} />
                 <p className=" text-white">
                   已經有會員了嗎?
-                  <a className="link ml-2" href="./login.html">
+                  <Link className="link ml-2" to="/login">
                     立即登入
-                  </a>
+                  </Link>
                 </p>
               </form>
             )}

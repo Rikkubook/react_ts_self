@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
+declare module "@/assets/img/pc/logo.png" {
+  const value: string;
+  export default value;
+}
+
 interface ImportMetaEnv {
   VITE_APP_ENV: string;
   VITE_ARTICLELIST: string;

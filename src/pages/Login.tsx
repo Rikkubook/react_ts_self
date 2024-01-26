@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import Header from "@/components/Header";
 import InputGroup from "@/components/Form/InputGroup";
 import InputCheckbox from "@/components/Form/InputCheckbox";
@@ -8,11 +10,12 @@ import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
 import lineBgc_mb from "@/assets/img/mb/line.png";
 
-import { isMobile } from "../../../subPublic/ts/public";
-import { postAxios } from "../../../subPublic/ts/api";
-import { checkEmail, checkPassword } from "../../../subPublic/ts/verify";
+import { useMobileStatus } from "../../subPublic/ts/usePublic";
+import { postAxios } from "../../subPublic/ts/api";
+import { checkEmail, checkPassword } from "../../subPublic/ts/verify";
 
 function App() {
+  const isMobile = useMobileStatus();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -39,6 +42,7 @@ function App() {
     });
 
     if (!emailError && !passwordError) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       postAxios("/user/login", login)
         .then(() => {
           console.log("登入成功");
@@ -51,8 +55,10 @@ function App() {
     }
   }
 
+  // monitorWindowWidth();
+
   useEffect(() => {
-    console.log(login);
+    // console.log(login);
   }, [login]);
 
   return (
@@ -123,9 +129,9 @@ function App() {
               <Button label="會員登入" onButtonClick={postLogin} />
               <p className=" text-white">
                 沒有會員嗎？
-                <a className="link ml-2" href="./register.html">
+                <Link className="link ml-2" to="/register">
                   前往註冊
-                </a>
+                </Link>
               </p>
             </form>
           </div>

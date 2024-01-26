@@ -1,11 +1,16 @@
 type Props = {
-  label: string;
+  label: string | JSX.Element;
   onButtonClick?: () => void;
+  addClass?: string;
 };
 
-function Button({ label, onButtonClick }: Props) {
+function Button({ label, addClass, onButtonClick }: Props) {
   return (
-    <button className="btn mb-4" type="button" onClick={onButtonClick}>
+    <button
+      className={addClass ? ` btn group mb-4 ${addClass}` : " btn group mb-4"}
+      type="button"
+      onClick={onButtonClick}
+    >
       {label}
     </button>
   );
