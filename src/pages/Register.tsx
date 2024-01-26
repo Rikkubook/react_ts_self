@@ -24,7 +24,7 @@ import {
   checkDoubleCheck,
   checkRequired,
   checkCheckbox,
-} from "../../subPublic/ts/verify";
+} from "../../subPublic/ts/form/verify";
 
 function App() {
   const [step, setStep] = useState(1);

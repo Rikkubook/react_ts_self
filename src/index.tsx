@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import Hotel from "./pages/Hotel.tsx";
 import "@/assets/css/index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/hotel",
+    element: <Hotel />,
   },
 ]);
 

@@ -12,7 +12,7 @@ import lineBgc_mb from "@/assets/img/mb/line.png";
 
 import { useMobileStatus } from "../../subPublic/ts/usePublic";
 import { postAxios } from "../../subPublic/ts/api";
-import { checkEmail, checkPassword } from "../../subPublic/ts/verify";
+import { checkEmail, checkPassword } from "../../subPublic/ts/form/verify";
 
 function App() {
   const isMobile = useMobileStatus();

@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Button from "@/components/Form/Button";
 import BannerBgc from "@/assets/img/pc/banner.png";
 import BannerBgc2 from "@/assets/img/pc/room3-3.png";
 import BannerBgc3 from "@/assets/img/pc/room3-4.png";
@@ -11,18 +10,10 @@ import "swiper/css/pagination";
 // import "./style.css";
 
 function App() {
-  const specialButton = () => {
-    return (
-      <>
-        立即訂房
-        <div className="ml-4 w-28 border-b border-black-100 transition-colors group-hover:border-white"></div>
-      </>
-    );
-  };
   return (
     <>
       <div className="relative">
-        <div className="home">
+        <div className="page">
           <Swiper
             className="mySwiper absolute bottom-0 left-0 right-0 top-0 z-0"
             spaceBetween={0}
@@ -51,7 +42,7 @@ function App() {
             </SwiperSlide>
           </Swiper>
           <Header />
-          <div className="pointer-events-none  relative flex w-full flex-col justify-between px-3 py-10 md:flex-row md:px-20 md:py-48">
+          <div className="pointer-events-none  relative flex w-full flex-col justify-center px-3 py-10 md:flex-row md:px-20 md:py-48">
             <div className="text-center text-primary-100 md:text-left">
               <h2 className="mb-2 text-2xl md:text-10">享樂酒店</h2>
               <h3 className="mb-5 text-base md:mb-10 md:text-6">
@@ -61,16 +52,21 @@ function App() {
             </div>
             <div className="banner-text">
               <div className="text-group">
-                <h1 className="mb-6 text-12 text-white md:text-25">
-                  高雄
-                  <br />
-                  豪華住宿之選
-                </h1>
-                <p className="mb-14 text-base leading-relaxed text-white md:text-8	">
-                  我們致力於為您提供無與倫比的奢華體驗與優質服務
-                </p>
-                <Button addClass="!text-left" label={specialButton()} />
+                <h1 className="mb-6 text-8 text-white md:text-12">客房旅宿</h1>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="">
+          <p>房型選擇</p>
+          <h2>各種房型，任您挑選</h2>
+          <div className="">
+            <div className=""></div>
+            <div className="">
+              <h3>尊爵雙人房</h3>
+              <p>
+                享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。
+              </p>
             </div>
           </div>
         </div>

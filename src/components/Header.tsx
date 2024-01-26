@@ -15,7 +15,7 @@ function Header() {
   };
   return (
     <div
-      className={`${pathname === "/" ? "bg-transparent" : "bg-black-120"} relative z-10 flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
+      className={`${pathname !== "/register" && pathname !== "/login" ? "bg-transparent" : "bg-black-120"} relative z-10 flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
     >
       <h1 className=" inline-block">
         <a className=" inline-block" href="/">
@@ -30,13 +30,13 @@ function Header() {
         </button>
       ) : (
         <div className="space-x-2">
-          <Link className="btn-transparent !w-auto !p-4" to="/login">
+          <Link className="btn-transparent !w-auto !p-4" to="/hotel">
             客房旅宿
           </Link>
           <Link className="btn-transparent !w-auto !p-4" to="/login">
             會員登入
           </Link>
-          <Link className="btn !w-auto !p-4" to="/login">
+          <Link className="btn-primary !w-auto !p-4" to="/login">
             立即訂房
           </Link>
         </div>
@@ -51,7 +51,7 @@ function Header() {
           </button>
           <ul className="flex h-2/3 flex-col justify-center space-y-4 text-center">
             <li>
-              <Link className="btn-transparent !w-auto !p-4" to="/login">
+              <Link className="btn-transparent !w-auto !p-4" to="/hotel">
                 客房旅宿
               </Link>
             </li>
