@@ -1,14 +1,11 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import Button from "@/components/Form/Button";
 import BannerBgc from "@/assets/img/pc/banner.png";
 import BannerBgc2 from "@/assets/img/pc/room3-3.png";
 import BannerBgc3 from "@/assets/img/pc/room3-4.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import "./style.css";
 
 function App() {
   const specialButton = () => {
@@ -34,7 +31,6 @@ function App() {
               delay: 10000,
               disableOnInteraction: false,
             }}
-            navigation={true}
             modules={[Autoplay, Pagination]}
           >
             <SwiperSlide>
@@ -73,6 +69,7 @@ function App() {
               </div>
             </div>
           </div>
+          <Footer />
         </div>
       </div>
     </>

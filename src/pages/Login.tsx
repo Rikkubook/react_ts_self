@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "@/components/Header";
 import InputGroup from "@/components/Form/InputGroup";
 import InputCheckbox from "@/components/Form/InputCheckbox";
 import Button from "@/components/Form/Button";
+import Loading from "@/components/Loading";
 
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
@@ -20,6 +21,7 @@ function App() {
     email: "",
     password: "",
   });
+  const [loaded, setLoaded] = useState(true);
 
   const [errorCheck, setErrorCheck] = useState({
     email: false,
@@ -42,24 +44,25 @@ function App() {
     });
 
     if (!emailError && !passwordError) {
+      setLoaded(false);
       // eslint-disable-next-line react-hooks/rules-of-hooks
       postAxios("/user/login", login)
         .then(() => {
           console.log("登入成功");
-          window.location.href = "/index";
+          window.location.href = "/";
+          localStorage.setItem("user", JSON.stringify("true"));
         })
         .catch((err) => {
           console.log(err);
           alert(err);
+        })
+        .finally(() => {
+          setLoaded(true);
         });
     }
   }
 
   // monitorWindowWidth();
-
-  useEffect(() => {
-    // console.log(login);
-  }, [login]);
 
   return (
     <>
@@ -137,6 +140,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Loading loaded={loaded} />
     </>
   );
 }

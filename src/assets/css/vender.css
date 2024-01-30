@@ -1,7 +1,7 @@
 .swiper-pagination-bullet{
   width: 32px;
   height: 4px;
-  border-radius: 0;
+  border-radius: 100px;
   background-color: #ffff;
   opacity: 1;
   transition: 0.5s;
@@ -9,7 +9,39 @@
 .swiper-pagination-bullet-active{
   width: 60px;
   height: 4px;
-  border-radius: 0;
+  border-radius: 100px;
   background-color: #BF9D7D;
   opacity: 1;
+}
+.swiper-button-next{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: none;
+  &::after{
+    font-family: 'Material Symbols Outlined';
+    content: "\e409";
+    -webkit-font-feature-settings: 'liga';
+    color: #4B4B4B;
+  }
+
+}
+.swiper-button-prev{
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: none;
+  &::after{
+    font-family: 'Material Symbols Outlined';
+    content: "\e5cb";
+    -webkit-font-feature-settings: 'liga';
+    color: #4B4B4B;
+  }
+}
+@media (max-width: 767.98px) {
+  .swiper-button-next, .swiper-button-prev{
+    display: block
+  }
 }

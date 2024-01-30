@@ -1,5 +1,5 @@
 import logo from "@/assets/img/pc/logo.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { useMobileStatus } from "../../subPublic/ts/usePublic";
@@ -9,13 +9,28 @@ function Header() {
   const location = useLocation();
   const pathname = location.pathname;
   const [openMenu, setOpenMenu] = useState(false);
-
+  const [user, setUser] = useState(false);
   const onChangeMenu = () => {
     setOpenMenu(!openMenu);
   };
+
+  const onLogout = () => {
+    localStorage.removeItem("user");
+    setUser(false);
+  };
+
+  useEffect(() => {
+    const storedUser = Boolean(localStorage.getItem("user"));
+    console.log(storedUser);
+    if (storedUser) {
+      console.log("login");
+      setUser(true);
+    }
+  }, [user]);
+
   return (
     <div
-      className={`${pathname !== "/register" && pathname !== "/login" ? "bg-transparent" : "bg-black-120"} relative z-10 flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
+      className={`${pathname !== "/register" && pathname !== "/login" ? "bg-transparent" : "bg-black-120"} relative z-20 flex items-center justify-between px-3 py-4 md:px-20 md:py-6`}
     >
       <h1 className=" inline-block">
         <a className=" inline-block" href="/">
@@ -33,9 +48,16 @@ function Header() {
           <Link className="btn-transparent !w-auto !p-4" to="/hotel">
             客房旅宿
           </Link>
-          <Link className="btn-transparent !w-auto !p-4" to="/login">
-            會員登入
-          </Link>
+          {!user ? (
+            <Link className="btn-transparent !w-auto !p-4" to="/login">
+              會員登入
+            </Link>
+          ) : (
+            <button className="btn-transparent !w-auto !p-4" onClick={onLogout}>
+              會員登出
+            </button>
+          )}
+
           <Link className="btn-primary !w-auto !p-4" to="/login">
             立即訂房
           </Link>
@@ -55,11 +77,22 @@ function Header() {
                 客房旅宿
               </Link>
             </li>
-            <li>
-              <Link className="btn-transparent !w-auto !p-4" to="/login">
-                會員登入
-              </Link>
-            </li>
+            {!user ? (
+              <li>
+                <Link className="btn-transparent !w-auto !p-4" to="/login">
+                  會員登入
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <button
+                  className="btn-transparent !w-auto !p-4"
+                  onClick={onLogout}
+                >
+                  會員登出
+                </button>
+              </li>
+            )}
             <li>
               <Link className="btn-primary !p-4" to="/login">
                 立即訂房

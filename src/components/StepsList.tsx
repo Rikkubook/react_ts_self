@@ -1,9 +1,9 @@
 import React from "react";
 
-interface Props {
+type Props = {
   steps: string[];
   nowStep: number;
-}
+};
 
 function StepsList({ steps, nowStep }: Props) {
   return (

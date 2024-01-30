@@ -4,6 +4,7 @@ import StepsList from "@/components/StepsList";
 import InputGroup from "@/components/Form/InputGroup";
 import InputCheckbox from "@/components/Form/InputCheckbox";
 import Button from "@/components/Form/Button";
+import Loading from "@/components/Loading";
 
 import registerBgc from "@/assets/img/pc/register.png";
 import lineBgc_pc from "@/assets/img/pc/line3.png";
@@ -30,6 +31,7 @@ function App() {
   const [step, setStep] = useState(1);
   const steps = ["輸入信箱及密碼", "填寫基本資料"];
   const isMobile = useMobileStatus();
+  const [loaded, setLoaded] = useState(true);
 
   // 表單一
   const [register, setRegister] = useState({
@@ -144,6 +146,7 @@ function App() {
     });
     if (!nameError && !phoneError && !detailError && !checkCheckboxError) {
       // 所有字段验证通过，可以进行下一步操作
+      setLoaded(false);
       postAxios("/user/signup", register)
         .then(() => {
           console.log("註冊成功");
@@ -152,6 +155,9 @@ function App() {
         .catch((err) => {
           console.log(err);
           alert(err);
+        })
+        .finally(() => {
+          setLoaded(true);
         });
     }
   }
@@ -382,6 +388,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Loading loaded={loaded} />
     </>
   );
 }

@@ -2,8 +2,8 @@
 
 }
 
-.banner-line{
-  @apply h-1;
+.line{
+  @apply h-0.5;
   background: linear-gradient(90deg, #BE9C7C 0%, #FFF 100%);
   @media (max-width: 767.98px) {
     height: 83px;
@@ -46,7 +46,7 @@
   background-color: rgba(0, 0, 0, 0.60);;
 }
 
-.page{
+.page-banner{
   .banner-line{
     width: 500px;
   }
