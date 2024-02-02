@@ -49,20 +49,20 @@ function App() {
           <Header />
           <div className="pointer-events-none  relative flex w-full flex-col justify-between px-3 py-10 md:flex-row md:px-20 md:py-48">
             <div className="text-center text-primary-100 md:text-left">
-              <h2 className="mb-2 text-2xl md:text-10">享樂酒店</h2>
-              <h3 className="mb-5 text-base md:mb-10 md:text-6">
+              <h2 className="mb-2 text-2xl md:text-8 lg:text-10">享樂酒店</h2>
+              <h3 className="md:text-4 mb-5 text-base leading-10 md:mb-10 lg:text-8 ">
                 Enjoyment Luxury Hotel
               </h3>
               <div className="banner-line mb-10 md:mb-0"></div>
             </div>
             <div className="banner-text">
               <div className="text-group">
-                <h1 className="mb-6 text-12 text-white md:text-25">
+                <h1 className="md:text-22 lg:text-24 mb-6 text-12 text-white">
                   高雄
                   <br />
                   豪華住宿之選
                 </h1>
-                <p className="mb-14 text-base leading-relaxed text-white md:text-8	">
+                <p className="mb-14 text-base leading-relaxed text-white md:text-6 lg:text-8	">
                   我們致力於為您提供無與倫比的奢華體驗與優質服務
                 </p>
                 <Button addClass="!text-left" label={specialButton()} />

@@ -24,6 +24,7 @@ import {
   checkPassword,
   checkDoubleCheck,
   checkRequired,
+  checkPhone,
   checkCheckbox,
 } from "../../subPublic/ts/form/verify";
 
@@ -133,7 +134,7 @@ function App() {
 
   function postRegister() {
     const nameError = checkRequired(register.name);
-    const phoneError = checkRequired(register.phone);
+    const phoneError = checkPhone(register.phone);
     const detailError = checkRequired(register.address.detail);
     const checkCheckboxError = checkCheckbox(register.agree);
 
@@ -269,7 +270,7 @@ function App() {
                       onInputChange={onInputChange}
                       currentStep={2}
                       isError={errorCheck.phone}
-                      errorMsg="此為必填"
+                      errorMsg="手機格式不合"
                     />
                   </div>
                   <div className="form-group">

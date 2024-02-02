@@ -12,7 +12,7 @@ type Props = {
 function HotelCard({ images, title, desc, content, price }: Props) {
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white md:flex-row">
-      <div className="md:w-3/5">
+      <div className="md:w-1/2 lg:w-3/5">
         <Swiper
           className="cardSwiper relative bottom-0 left-0 right-0 top-0 z-0 h-full"
           spaceBetween={0}
@@ -34,9 +34,9 @@ function HotelCard({ images, title, desc, content, price }: Props) {
           ))}
         </Swiper>
       </div>
-      <div className="p-4 md:p-10">
+      <div className="p-4 md:p-6 lg:p-10">
         <h3 className="mb-2 text-7 md:text-10">{title}</h3>
-        <p className="mb-6 text-sm md:mb-10 md:text-base">{desc}</p>
+        <p className="mb-4 text-sm md:mb-6 md:text-base lg:mb-10">{desc}</p>
         <ul className="flex space-x-4">
           {content.space && (
             <li className="flex aspect-square w-[97px]  flex-col justify-center rounded-lg border border-primary-40 p-4">
